@@ -16,6 +16,9 @@ var Event = sequelizeConnection.define("events", {
 	},
 	venue: {
 		type: Sequelize.STRING
+	},
+	user_id: {
+		type: Sequelize.INTEGER
 	}
 });
 

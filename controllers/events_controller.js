@@ -50,7 +50,8 @@ router.post('/events/create', function(req,res) {
 		venue: req.body.venue,
 		user_id: req.session.user_id
 	}).then(function(newlyCreatedevent){
-		res.redirect('/')
+		// res.redirect('/')
+		res.send(newlyCreatedevent);
 	});
 });
 
@@ -69,7 +70,7 @@ router.get('/events/myevents', function(req,res) {
 			logged_in : req.session.logged_in,
 			username : req.session.username
 		}
-	res.send(result);
+	res.render('events/myevents', hbsObject);
 	});
 });
 

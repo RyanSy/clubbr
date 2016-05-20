@@ -12,7 +12,7 @@ var session = require('express-session');
 var app = express();
 
 //allow sessions
-app.use(session({ secret: 'app', cookie: { maxAge: 60000 }}));
+app.use(session({ secret: 'app', cookie: { maxAge: 6000000 }}));
 app.use(cookieParser());
 
 //Serve static content for the app from the "public" directory in the application directory.

@@ -1,5 +1,11 @@
 {{#if logged_in}}
   {{#each events}}
-    {{this.name}}
+    <div class="list-group">
+       <a href="#">
+        {{name}}<br>
+        {{genre}}<br>
+        {{venue}}<br>
+      </a>
+    </div>
   {{/each}}
 {{/if}}
