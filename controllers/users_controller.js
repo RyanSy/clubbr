@@ -4,6 +4,7 @@ Here is where you create all the functions that will do the routing for your app
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
+var session = require('express-session');
 
 var Cat = require('../models/models.js')[0];
 var User = require('../models/models.js')[1];
@@ -15,11 +16,10 @@ router.get('/users/sign-in', function(req,res) {
 
 router.get('/users/sign-out', function(req,res) {
   req.session.destroy(function(err) {
-     res.redirect('layouts/main')
+     res.redirect('/')
   })
 });
 
-//if user trys to sign in with the wrong password or email tell them that on the page
 router.post('/users/sign-in', function(req, res) {
   User.findOne({
     where: {email: req.body.email}
@@ -33,10 +33,10 @@ router.post('/users/sign-in', function(req, res) {
           req.session.user_email = user.email;
           req.session.username = user.username;
 
-          res.render('events/index');
+          res.redirect('/');
         }
 				else {
-					res.send("The password is incorrect.")
+					res.send("The password is incorrect. Click back and try again.")
 				}
     });
   })
@@ -67,7 +67,7 @@ router.post('/users/create', function(req,res) {
 							req.session.user_id = user.id;
 							req.session.user_email = user.email;
 							req.session.username = user.username;
-							res.render('events/search');
+							res.redirect('/');
 						});
 					});
 			});

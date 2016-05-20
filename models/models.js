@@ -16,9 +16,6 @@ var Event = sequelizeConnection.define("events", {
 	},
 	venue: {
 		type: Sequelize.STRING
-	},
-	city: {
-		type: Sequelize.STRING
 	}
 });
 

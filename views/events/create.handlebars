@@ -1,0 +1,26 @@
+<form class="create-update-form" action="/events/create" method="POST">
+
+  <h2>Enter event details:</h2>
+
+  <div class="form-group">
+    <label for="name">Name: </label>
+    <input type="text" id="name" name="name">
+  </div>
+
+  <div class="form-group">
+    <label for="genre">Genre: </label>
+    <input type="text" id="genre" name="genre">
+  </div>
+
+  <div class="form-group">
+    <label for="venue">Venue: </label>
+    <input type="text" id="venue" name="venue">
+  </div>
+
+  <div class="form-group">
+\    <input type="hidden" id="user_id" name="user_id" value="req.session.user_id">
+  </div>
+
+  <button type="submit">Add Event</button>
+
+</form>
