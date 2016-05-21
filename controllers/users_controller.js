@@ -5,19 +5,17 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcryptjs');
 var session = require('express-session');
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
+var keys = require('../../APIkeys/sendgridKeys');
+var sendgrid  = require('sendgrid')(keys.sendgridKeys);
 
-var Cat = require('../models/models.js')[0];
+var Event = require('../models/models.js')[0];
 var User = require('../models/models.js')[1];
 
 //this is the users_controller.js file
 router.get('/users/sign-in', function(req,res) {
 	res.render('users/sign-in');
-});
-
-router.get('/users/sign-out', function(req,res) {
-  req.session.destroy(function(err) {
-     res.redirect('/')
-  })
 });
 
 router.post('/users/sign-in', function(req, res) {
@@ -39,6 +37,12 @@ router.post('/users/sign-in', function(req, res) {
 					res.send("The password is incorrect. Click back and try again.")
 				}
     });
+  })
+});
+
+router.get('/users/sign-out', function(req,res) {
+  req.session.destroy(function(err) {
+     res.redirect('/')
   })
 });
 
@@ -71,9 +75,27 @@ router.post('/users/create', function(req,res) {
 						});
 					});
 			});
-
 		}
 	});
+});
+
+router.get('/users/forgot', function(req,res) {
+	res.render('users/forgot');
+});
+
+router.post('/users/forgot', function(req,res) {
+	sendgrid.send({
+	  to:       req.body.email,
+	  from:     'noreply@clubber.app',
+	  subject:  'Clubbr Password Reset',
+	  text:     'Click on the link to reset your password.'
+	}, function(err, json) {
+	  if (err) { return console.error(err); }
+	  console.log(json);
+		console.log('this worked');
+	});
+
+	res.send("An email has been sent to you with a link to reset your password.");
 });
 
 module.exports = router;

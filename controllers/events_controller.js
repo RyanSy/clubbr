@@ -30,7 +30,7 @@ router.post('/events', function(req,res) {
 			logged_in : req.session.logged_in,
 			username : req.session.username
 		}
-		res.send(result);
+		res.render('events/index', hbsObject);
 	})
 });
 
