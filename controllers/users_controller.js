@@ -7,13 +7,17 @@ var bcrypt = require('bcryptjs');
 var session = require('express-session');
 var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
-var keys = require('../../APIkeys/sendgridKeys');
-var sendgrid  = require('sendgrid')(keys.sendgridKeys);
+var fs = require('fs');
+var keys = require('../../APIkeys/sendgridKeys.js');
+var sendgrid  = require('sendgrid')(keys.sendgridKeys.key);
+var crypto = require('crypto');
+var bodyParser = require('body-parser');
+var sequelize = require('./../config/connection.js');
+
 
 var Event = require('../models/models.js')[0];
 var User = require('../models/models.js')[1];
 
-//this is the users_controller.js file
 router.get('/users/sign-in', function(req,res) {
 	res.render('users/sign-in');
 });
@@ -24,13 +28,10 @@ router.post('/users/sign-in', function(req, res) {
   }).then(function(user) {
     bcrypt.compare(req.body.password, user.password_hash, function(err, result) {
         if (result == true){
-          //make session
-
           req.session.logged_in = true;
           req.session.user_id = user.id;
           req.session.user_email = user.email;
           req.session.username = user.username;
-
           res.redirect('/');
         }
 				else {
@@ -50,7 +51,6 @@ router.get('/users/new', function(req,res) {
 	res.render('users/new');
 });
 
-//to do: check if the username/email exist - if they do then redirect the user back to the signup page and say sorry you need to choose a new name
 router.post('/users/create', function(req,res) {
 	User.findAll({
     where: {$or: [{email: req.body.email}, {username: req.body.username}]}
@@ -58,7 +58,8 @@ router.post('/users/create', function(req,res) {
 		if (users.length > 0){
 			console.log(users)
 			res.send('We already have an email or username for this account.')
-		}else{
+		}
+		else {
 			bcrypt.genSalt(10, function(err, salt) {
 					bcrypt.hash(req.body.password, salt, function(err, hash) {
 						User.create({
@@ -66,7 +67,6 @@ router.post('/users/create', function(req,res) {
 							email: req.body.email,
 							password_hash: hash
 						}).then(function(user){
-
 							req.session.logged_in = true;
 							req.session.user_id = user.id;
 							req.session.user_email = user.email;
@@ -80,22 +80,69 @@ router.post('/users/create', function(req,res) {
 });
 
 router.get('/users/forgot', function(req,res) {
-	res.render('users/forgot');
+	res.render('users/forgot', {
+		user: req.user
+	});
 });
 
 router.post('/users/forgot', function(req,res) {
-	sendgrid.send({
-	  to:       req.body.email,
-	  from:     'noreply@clubber.app',
-	  subject:  'Clubbr Password Reset',
-	  text:     'Click on the link to reset your password.'
-	}, function(err, json) {
-	  if (err) { return console.error(err); }
-	  console.log(json);
-		console.log('this worked');
-	});
+	User.findOne({
+		where: {email: req.body.email}
+	}).then(function(user) {
+		if (user == undefined) {
+			res.send('No account with that email address exists.');
+		}
+		else {
+			crypto.randomBytes(20, function(err, buf) {
+        var token = buf.toString('hex');
+				user.resetPasswordToken = token;
+				sequelize.query("UPDATE users SET resetPasswordToken=':"+token+"' WHERE email='"+req.body.email+"';");
+				sequelize.query("UPDATE users SET resetPasswordExpires=DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE email='"+req.body.email+"';");
+				sendgrid.send({
+				  to:       req.body.email,
+				  from:     'noreply@clubber.app',
+				  subject:  'Clubbr Password Reset',
+				  text:     'Click on the link to reset your password: http://localhost:3000/users/reset/:'+token
+				}, function(err, json) {
+				  if (err) { return console.error(err); }
+				  console.log(json);
+				});//end sendgrid
+      }); //end crypto
+			res.send(" An email has been sent to you with a link to reset your password.");
+		} //end else statement
+	}); //end user.findOne().then()
+}); //end users forgot post route
 
-	res.send("An email has been sent to you with a link to reset your password.");
+router.get('/users/reset/:token', function(req, res) {
+  User.findOne({
+		where: {
+			resetPasswordToken: req.params.token,
+			resetPasswordExpires: {$gt: Date.now()}
+		}
+	}).then(function(user) {
+    if (user == null) {
+      res.send('error', 'Password reset token is invalid or has expired.');
+      return res.redirect('/forgot');
+    }
+    res.render('users/reset', {
+      user: req.user
+    });
+  });
+});//end get users reset
+
+router.post('/users/reset', function(req,res) {
+		if (req.body.newPassword == req.body.confirmPassword) {
+			bcrypt.genSalt(10, function(err, salt) {
+				bcrypt.hash(req.body.newPassword, salt, function(err, hash) {
+					sequelize.query("UPDATE users SET password_hash='"+hash+"' WHERE email='"+req.body.email+"';");
+				});
+			});
+			res.send("Password successfully changed.");
+		}
+		else {
+			res.send("Passwords do not match. PLease click back and try again.")
+		}
 });
+
 
 module.exports = router;
