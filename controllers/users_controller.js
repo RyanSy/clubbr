@@ -128,7 +128,7 @@ router.get('/users/reset/:token', function(req, res) {
       user: req.user
     });
   });
-});//end get users reset
+});
 
 router.post('/users/reset', function(req,res) {
 		if (req.body.newPassword == req.body.confirmPassword) {

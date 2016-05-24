@@ -1,17 +1,4 @@
-li {
-  margin: 5px;
-  padding: 5px;
-}
-
-.label {
-  font-weight: bold;
-}
-
-.create-update-form {
-  margin: 5px;
-  padding: 5px;
-}
-
-.form-group {
-  margin-bottom: 5px;
+/* cutstom css */
+#main {
+  padding: 130px 0px 130px 0px;
 }

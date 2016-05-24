@@ -1,8 +1,5 @@
 <form class="create-update-form" action="/users/forgot" method="POST">
-
-  <div class="form-group">
-    <input placeholder="Enter your email to reset your password." type="text" name="email">
-  </div>
-
-  <button type="submit">Reset</button>
+  <label for="em">Enter your email address to reset your password: </label><br>
+  <input id="em" class="form-group" placeholder="Email" type="text" name="email" required><br>
+  <button class="btn" type="submit">Reset</button>
 </form>

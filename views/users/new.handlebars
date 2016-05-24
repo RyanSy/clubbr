@@ -1,19 +1,6 @@
-<form class="create-update-form" action="/users/create" method="POST">
-
-  <div class="form-group">
-    <label for="uname">Username:</label>
-    <input type="text" id="uname" name="username">
-  </div>
-
-  <div class="form-group">
-    <label for="em">Email:</label>
-    <input type="text" id="em" name="email">
-  </div>
-
-  <div class="form-group">
-    <label for="pass">Password:</label>
-    <input type="password" id="pass" name="password">
-  </div>
-
-  <button type="submit">Sign Up!</button>
+<form action="/users/create" method="POST">
+    <input class="form-group" placeholder="Username" type="text" name="username"><br>
+    <input class="form-group" placeholder="Email" type="email" name="email"><br>
+    <input class="form-group" placeholder="Password" type="password" name="password"><br>
+    <button class="btn" type="submit">Sign Up!</button>
 </form>
