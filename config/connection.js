@@ -11,7 +11,7 @@ var source = {
         host: 'localhost',
         user: 'root',
         password: "1111",
-        database: "clubbr"
+        database: "clubbr",
     }
 }
 
