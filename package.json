@@ -18,12 +18,17 @@
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1",
     "express-session": "^1.13.0",
+    "fileupload": "^1.0.0",
+    "formidable": "^1.0.17",
+    "fs": "0.0.2",
     "method-override": "^2.3.5",
     "mysql": "^2.10.2",
     "nodemailer": "^2.4.1",
     "nodemailer-sendgrid-transport": "^0.2.0",
+    "path": "^0.12.7",
+    "randomstring": "^1.1.5",
     "sendgrid": "^2.0.0",
-    "sequelize": "^3.23.0",
+    "sequelize": "^3.23.0"
   },
   "devDependencies": {
     "handlebars-helper-css": "^0.1.0"

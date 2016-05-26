@@ -1,12 +1,17 @@
+
 {{#if logged_in}}
+<div class="row">
   {{#each events}}
-    <div class="list-group">
-       <a href="#">
-        {{name}}<br>
-        {{genre}}<br>
-        {{venue}}<br>
-      </a>
-      {{>events/update}}<br>{{>events/delete}}
+  <ul>
+    <div class="col-md-4 result pin">
+        <a href="#">
+            <img class="img-responsive" src="/assets/images/{{this.image}}" alt="">
+        </a>
+        <h3>
+            <a href="#">{{this.name}}<br>{{this.venue}}<br>{{this.genre}}</a>
+            {{>events/update}} {{>events/delete}}
+        </h3>
     </div>
   {{/each}}
+</div>
 {{/if}}

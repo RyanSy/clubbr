@@ -19,6 +19,9 @@ var Event = sequelizeConnection.define("events", {
 	},
 	user_id: {
 		type: Sequelize.INTEGER
+	},
+	image: {
+		type: Sequelize.STRING
 	}
 });
 

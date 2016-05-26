@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var session = require('express-session');
+var path = require('path');
+var fs = require('fs');
+
+var randomstring = require("randomstring");
+var formidable  = require("formidable");
 
 var Event = require('../models/models.js')[0];
 var User = require('../models/models.js')[1];
@@ -40,15 +45,61 @@ router.get('/events/create', function(req,res) {
 });
 
 router.post('/events/create', function(req,res) {
-	Event.create({
-		name: req.body.name,
-		genre: req.body.genre,
-		venue: req.body.venue,
-		user_id: req.session.user_id
-	}).then(function(){
-		// res.redirect('/')
-		res.redirect("/events/myevents");
-	});
+//res.end(JSON.stringify(req.files) + "\n");
+	// fs.readFile(req.files.image.path, function (err, data) {
+	// var newPath = __dirname + "/../public/assets/images";
+	// fs.writeFile(newPath, data, function (err) {
+	// 	});
+	// });
+
+
+	var form = new formidable.IncomingForm();
+
+console.log(form);
+
+//console.log(req);
+	//console.log(files.upload.path);
+	var userID = req.session.user_id;
+	console.log(process.cwd());
+	var uploadLocation = process.cwd()+ "/public/assets/images/";
+	var uploadFilename = userID+"_"+randomstring.generate(7)+".png";
+
+	form.parse(req, function(error, fields, files) {
+    console.log("parsing done");
+
+console.log(uploadLocation+uploadFilename);
+console.log(fields);
+console.log(files);
+
+
+fs.rename(files.image.path, uploadLocation+uploadFilename, function(error) {
+	if (error) {
+		console.log(error);
+		fs.unlink("/tmp/test.png");
+		fs.rename(files.image.path, "/tmp/test.png");
+	}
+
+//res.send("<img src='/assets/images/"+uploadFilename+"'>");
+
+
+Event.create({
+	name: fields.name,
+	genre: fields.genre,
+	venue: fields.venue,
+	image: uploadFilename,
+	user_id: req.session.user_id
+}).then(function(){
+	res.redirect("/events/myevents");
+});
+
+
+});
+
+
+
+});
+
+
 });
 
 // route to show events that user created

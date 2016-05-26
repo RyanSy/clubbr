@@ -79,6 +79,7 @@ router.post('/users/create', function(req,res) {
 	});
 });
 
+//user reset password
 router.get('/users/forgot', function(req,res) {
 	res.render('users/forgot', {
 		user: req.user
@@ -102,7 +103,8 @@ router.post('/users/forgot', function(req,res) {
 				  to:       req.body.email,
 				  from:     'noreply@clubber.app',
 				  subject:  'Clubbr Password Reset',
-				  text:     'Click on the link to reset your password: http://localhost:3000/users/reset/:'+token
+				  html:     '<p>Click on the link to reset your password: http://localhost:3000/users/reset/:'+token+'<br><br>This is an automtically generated email. Replies to this email address will go nowhere.'
+
 				}, function(err, json) {
 				  if (err) { return console.error(err); }
 				  console.log(json);

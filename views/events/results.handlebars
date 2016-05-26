@@ -1,11 +1,11 @@
-<div class="list-group">
+<div class="row text-center">
   {{#each events}}
-  <ul>
-    <a href="#">
-      {{this.name}}<br>
-      {{this.venue}}<br>
-      {{this.genre}}<br>
-    </a>
-  </ul>
+    <div class="col-md-4 result pin">
+        <a href="#">
+          <img class="img-responsive" src="http://placehold.it/700x400" alt="">
+        </a>
+        <a href="#">{{this.name}} @ {{this.venue}} | {{this.genre}}
+        </a>
+    </div>
   {{/each}}
 </div>
