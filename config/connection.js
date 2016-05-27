@@ -21,10 +21,10 @@ var selectedSource = source.localhost;
 
 //Creates mySQL connection using Sequelize or JAWSDB
 if (process.env.JAWSDB_URL) {
-  var connection = new Sequelize(process.env.JAWSDB_URL);
+  var sequelize = new Sequelize(process.env.JAWSDB_URL);
 }
 else {
-  var connection = new Sequelize(selectedSource.database, selectedSource.user, selectedSource.password, {
+  var sequelize = new Sequelize(selectedSource.database, selectedSource.user, selectedSource.password, {
     define: { timestamps: false },
     host: selectedSource.host,
     dialect: 'mysql',
