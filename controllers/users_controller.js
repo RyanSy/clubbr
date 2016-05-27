@@ -13,7 +13,7 @@ var sendgrid  = require('sendgrid')(keys.sendgridKeys.key);
 var crypto = require('crypto');
 var bodyParser = require('body-parser');
 var sequelize = require('./../config/connection.js');
-
+var handlebars = require('express-handlebars');
 
 var Event = require('../models/models.js')[0];
 var User = require('../models/models.js')[1];

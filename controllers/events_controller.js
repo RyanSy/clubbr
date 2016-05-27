@@ -4,6 +4,7 @@ var session = require('express-session');
 var path = require('path');
 var fs = require('fs');
 var sequelize = require('sequelize');
+var handlebars = require('express-handlebars');
 
 var randomstring = require("randomstring");
 var formidable  = require("formidable");
