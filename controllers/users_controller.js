@@ -130,20 +130,27 @@ router.get('/users/reset/:token', function(req, res) {
       user: req.user
     });
   });
-});
+});//end route
 
 router.post('/users/reset', function(req,res) {
+	User.findAll({
+		where: {
+			email: req.body.email
+		}
+	}).then(function(user) {
+		console.log(user);
 		if (req.body.newPassword == req.body.confirmPassword) {
 			bcrypt.genSalt(10, function(err, salt) {
 				bcrypt.hash(req.body.newPassword, salt, function(err, hash) {
-					sequelize.query("UPDATE users SET password_hash='"+hash+"' WHERE email='"+req.body.email+"';");
+					sequelize.query("UPDATE users SET password_hash='"+hash+"' WHERE email='"+user[0].email+"';");
 				});
 			});
-			res.send("Password successfully changed.");
+			return res.redirect("/");
 		}
 		else {
-			res.send("Passwords do not match. PLease click back and try again.")
+			res.send("Passwords do not match. Please click back and try again.")
 		}
+	});
 });
 
 

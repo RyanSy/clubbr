@@ -1,8 +1,5 @@
-{{#each user}}
-<p>email</p>
-{{/each}}
-
 <form class="create-update-form" action="/users/reset" method="POST">
+  <input class="form-group" placeholder="Email" type="email" name="email"><br>
   <input class="form-group" placeholder="New password" type="password" name="newPassword"><br>
   <input class="form-group" accept=""placeholder="Confirm password" type="password" name="confirmPassword"><br>
   <button class="btn" type="submit">Reset Password</button>
