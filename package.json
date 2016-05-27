@@ -23,6 +23,7 @@
     "express-handlebars": "^2.0.1",
     "express-session": "^1.13.0",
     "fileupload": "^1.0.0",
+    "finalhandler": "^0.4.1",
     "formidable": "^1.0.17",
     "fs": "0.0.2",
     "merge-descriptors": "^1.0.1",
