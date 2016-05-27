@@ -16,7 +16,7 @@ router.get('/', function(req,res) {
 		logged_in : req.session.logged_in,
 		username : req.session.username
 	}
-	res.render('events/index', session);
+	res.render('events/index', {session, layout:"other"});
 });
 
 //route for user search
