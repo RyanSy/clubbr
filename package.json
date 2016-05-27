@@ -1,6 +1,9 @@
 {
   "name": "clubbr",
   "version": "1.0.0",
+  "engines": {
+    "node": "4.2.4"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
