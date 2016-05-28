@@ -42,12 +42,13 @@
 <div class="jumbotron text-center">
 	{{#events}}
 		<img src="/assets/images/{{this.image}}"/>
-		<br> {{this.name}}
-		<br> {{this.genre}}
-		<br> {{this.venue}}
-		<br> {{this.address}}
-		<br> {{this.phone}}
-		<br> {{this.hours}}
+		<br> Name: {{this.name}}
+		<br> DJs: {{this.djs}}
+		<br> Genre: {{this.genre}}
+		<br> Venue: {{this.venue}}
+		<br> Address: {{this.address}}
+		<br> Phone: {{this.phone}}
+		<br> Hours: {{this.hours}}
 		<br> {{>events/guest-list}}
 	{{/events}}
 </div>

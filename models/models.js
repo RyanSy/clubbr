@@ -17,6 +17,18 @@ var Event = sequelizeConnection.define("events", {
     venue: {
         type: Sequelize.STRING
     },
+    djs: {
+        type: Sequelize.STRING
+    },
+    address: {
+        type: Sequelize.STRING
+    },
+    phone: {
+        type: Sequelize.STRING
+    },
+    hours: {
+        type: Sequelize.STRING
+    },
     user_id: {
         type: Sequelize.INTEGER
     },

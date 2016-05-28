@@ -44,9 +44,15 @@
 
 <h3>Are you sure you want to delete this event?</h3>
 {{#each events}}
-{{name}}<br>
-{{genre}}<br>
-{{venue}}<br>
+	<img src="/assets/images/{{this.image}}"/>
+	<br> Name: {{this.name}}
+	<br> DJs: {{this.djs}}
+	<br> Genre: {{this.genre}}
+	<br> Venue: {{this.venue}}
+	<br> Address: {{this.address}}
+	<br> Phone: {{this.phone}}
+	<br> Hours: {{this.hours}}
+	<br>
 <form action="delete" method="POST">
   <!-- option 2, pass in the id of the cat inside the form - you would access this in the route using req.body.id not req.params.id -->
   <input type="hidden" name="id" value="{{this.id}}">

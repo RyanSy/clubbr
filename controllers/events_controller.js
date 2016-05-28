@@ -231,10 +231,14 @@ router.post('/events/delete', function(req, res) {
 });
 
 router.post('/events/guest-list', function(req, res) {
+  var session = {
+      logged_in: req.session.logged_in,
+      username: req.session.username
+  }
   sendgrid.send({
       to: req.body.email,
       from: 'noreply@clubber.app',
-      subject: 'Clubbr Guest List',
+      subject: 'ClubbR Guest List',
       html: '<p>Hi '+req.body.name+',<br><br>You are now on our guest list. Just say "ClubbR" at the door.<br><br>This is an automtically generated email. Replies to this email address will go nowhere.'
 
   }, function(err, json) {
@@ -243,6 +247,6 @@ router.post('/events/guest-list', function(req, res) {
       }
       console.log(json);
 });
-  res.render("events/sent");
+  res.render("events/sent", session);
 });
 module.exports = router;

@@ -111,7 +111,7 @@ router.post('/users/forgot', function(req, res) {
                 sendgrid.send({
                     to: req.body.email,
                     from: 'noreply@clubber.app',
-                    subject: 'Clubbr Password Reset',
+                    subject: 'ClubbR Password Reset',
                     html: '<p>Click on the link to reset your password: http://localhost:3000/users/reset/:' + token + '<br><br>This is an automtically generated email. Replies to this email address will go nowhere.'
 
                 }, function(err, json) {
