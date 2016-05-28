@@ -31,6 +31,6 @@ app.use('/', events_controller);
 app.use('/', users_controller);
 
 
-var port = 3000;
-app.listen(process.env.PORT || port);
+var port = process.env.PORT;
+app.listen(port);
 console.log("Connected established at port:" + port);
