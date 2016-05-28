@@ -145,3 +145,8 @@ a.navbar-brand:hover {
    background-color: #384047;
    color: white;
  }
+#eventDetail {
+  background-color: rgba(200, 200, 200, 0.5);
+  color: black;
+
+}
