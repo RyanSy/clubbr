@@ -132,7 +132,7 @@ a.navbar-brand:hover {
     color: #ddd !important;
 }
 .navbar-default {
-  background-color:rgba(010, 010, 010, 0.15);
+  background-color:rgba(010, 010, 010, 0.1);
   background-image: none;
   background-repeat: no-repeat;
   border-style: none;

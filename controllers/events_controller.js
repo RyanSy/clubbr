@@ -5,6 +5,11 @@ var path = require('path');
 var fs = require('fs');
 var sequelize = require('sequelize');
 var handlebars = require('express-handlebars');
+var keys = require('../../APIkeys/sendgridKeys.js');
+var sendgrid = require('sendgrid')(keys.sendgridKeys.key);
+
+
+
 
 var randomstring = require("randomstring");
 var formidable = require("formidable");
@@ -36,7 +41,6 @@ router.post('/events', function(req, res) {
             }]
         }
     }).then(function(result) {
-        console.log(result);
         var hbsObject = {
             events: result,
             logged_in: req.session.logged_in,
@@ -48,12 +52,11 @@ router.post('/events', function(req, res) {
 
 //route for event details
 router.post('/events/details', function(req, res) {
-    Event.findOne({
+    Event.findAll({
         where: {
             id: req.body.id
         }
     }).then(function(result) {
-        console.log(result);
         var hbsObject = {
             events: result,
             logged_in: req.session.logged_in,
@@ -122,6 +125,8 @@ router.get('/events/myevents', function(req, res) {
     });
 });
 
+
+
 // routes to update event
 // view update page
 router.post('/events/update', function(req, res) {
@@ -140,19 +145,33 @@ router.post('/events/update', function(req, res) {
 });
 //post route to save changes
 router.post('/events/myevents', function(req, res) {
-    Event.update({
-        name: req.body.name,
-        genre: req.body.genre,
-        venue: req.body.venue,
-        user_id: req.session.user_id
-    }, {
-        where: {
-            id: req.body.id
-        }
-    }).then(function() {
-        // res.redirect('/')
-        res.redirect("/events/myevents");
-    });
+  var form = new formidable.IncomingForm();
+  var userID = req.session.user_id;
+  var uploadLocation = process.cwd() + "/public/assets/images/";
+  var uploadFilename = userID + "_" + randomstring.generate(7) + ".png";
+
+  form.parse(req, function(error, fields, files) {
+      fs.rename(files.image.path, uploadLocation + uploadFilename, function(error) {
+          if (error) {
+              fs.unlink("/tmp/test.png");
+              fs.rename(files.image.path, "/tmp/test.png");
+          }
+          Event.update({
+              name: fields.name,
+              djs: fields.djs,
+              genre: fields.genre,
+              venue: fields.venue,
+              address: fields.address,
+              phone: fields.phone,
+              hours: fields.hours,
+              reservations: fields.reservations,
+              image: uploadFilename,
+              user_id: req.session.user_id
+          }).then(function() {
+              res.redirect("/events/myevents");
+          });
+      });
+  });
 });
 
 // route to delete event
@@ -211,4 +230,19 @@ router.post('/events/delete', function(req, res) {
     }
 });
 
+router.post('/events/guest-list', function(req, res) {
+  sendgrid.send({
+      to: req.body.email,
+      from: 'noreply@clubber.app',
+      subject: 'Clubbr Guest List',
+      html: '<p>Hi '+req.body.name+',<br><br>You are now on our guest list. Just say "ClubbR" at the door.<br><br>This is an automtically generated email. Replies to this email address will go nowhere.'
+
+  }, function(err, json) {
+      if (err) {
+          return console.error(err);
+      }
+      console.log(json);
+});
+  res.render("events/sent");
+});
 module.exports = router;

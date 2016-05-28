@@ -41,13 +41,13 @@
 
 <div class="jumbotron text-center">
 	{{#events}}
-		{{image}}
-		<br> {{name}}
-		<br> {{genre}}
-		<br> {{venue}}
-		<br> {{address}}
-		<br> {{phone}}
-		<br> {{hours}}
-		<br>
+		<img src="/assets/images/{{this.image}}"/>
+		<br> {{this.name}}
+		<br> {{this.genre}}
+		<br> {{this.venue}}
+		<br> {{this.address}}
+		<br> {{this.phone}}
+		<br> {{this.hours}}
+		<br> {{>events/guest-list}}
 	{{/events}}
 </div>

@@ -39,17 +39,4 @@
 		</div>
 		</nav>
 
-<div class="container">
-<div class="row text-center">
-  {{#events}}
-    <div class="col-md-4 result pin">
-        <form action="/events/details" method="POST">
-          <button type="image"><img class="img-responsive" src="assets/images/{{this.image}}" alt="">
-				</button>
-        <button>{{this.name}} @ {{this.venue}} | {{this.genre}}</button>
-				<input type="hidden" name="id" value="{{id}}">
-			</form>
-		</div>
-  {{/events}}
-</div>
-</div>
+<h3 class="text-center">A confirmation email has been sent placing your name on the guest list for this event.</h3>
