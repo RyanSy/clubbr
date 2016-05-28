@@ -38,7 +38,9 @@ router.post('/events', function(req, res) {
                 venue: req.body.searchTerm
             }, {
                 djs: req.body.searchTerm
-            }]
+            }, {
+            address: req.body.searchTerm
+        }]
         }
     }).then(function(result) {
         var hbsObject = {
