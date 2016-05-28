@@ -177,7 +177,7 @@ router.post('/events/myevents', function(req, res) {
 });
 
 // route to delete event
-router.get('/events/confirm-delete', function(req, res) {
+router.post('/events/confirm-delete', function(req, res) {
     if (req.session.logged_in) {
         //check if event belongs to user then let user delete event
         Event.findAll({
