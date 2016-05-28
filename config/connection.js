@@ -4,7 +4,7 @@
 
 // Dependencies
 var Sequelize = require("sequelize"),
-  connection;
+    connection;
 
 // Lists out connection options
 var source = {
@@ -21,21 +21,22 @@ var selectedSource = source.localhost;
 
 //Creates mySQL connection using Sequelize or JAWSDB
 if (process.env.JAWSDB_URL) {
-  connection = new Sequelize(process.env.JAWSDB_URL);
-}
-else {
- connection = new Sequelize(selectedSource.database, selectedSource.user, selectedSource.password, {
-    define: { timestamps: false },
-    host: selectedSource.host,
-    dialect: 'mysql',
+    connection = new Sequelize(process.env.JAWSDB_URL);
+} else {
+    connection = new Sequelize(selectedSource.database, selectedSource.user, selectedSource.password, {
+        define: {
+            timestamps: false
+        },
+        host: selectedSource.host,
+        dialect: 'mysql',
 
-    pool: {
-      max: 5,
-      min: 0,
-      idle: 10000
-    },
+        pool: {
+            max: 5,
+            min: 0,
+            idle: 10000
+        },
 
-  });
+    });
 }
 
 // Exports the connection for other files to use

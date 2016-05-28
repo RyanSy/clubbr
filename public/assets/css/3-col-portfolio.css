@@ -1,0 +1,63 @@
+
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    background: url(../img/stage.jpg) no-repeat center top;
+    margin-top: -20px;
+	padding-top: 150px;
+    background-attachment: relative;
+	background-position: center center;
+	min-height: 650px;
+    width: 100%;
+
+    	-webkit-background-size: 100%;
+    	-moz-background-size: 100%;
+    	-o-background-size: 100%;
+    	background-size: 100%;
+
+   		-webkit-background-size: cover;
+    	-moz-background-size: cover;
+    	-o-background-size: cover;
+    	background-size: cover;
+}
+
+.result {
+    margin-bottom: 25px;
+}
+
+footer {
+    margin: 20px 0;
+}
+
+.pin {
+    background-color: #FFFFFF;
+	background:rgba(255,255,255,0.5);
+    box-shadow: 0 1px 3px rgba(34, 25, 25, 0.4);
+    float: left;
+    font-size: 12px;
+    margin: 0 10px 10px 0;
+    padding: 10px 10px 0;
+    /*position: relative;*/
+    width: 350px;
+}
+/*.pin .holder {
+    position: relative;
+    margin: 10px 0 5px;
+}
+.pin:hover .actions a {
+    display: block;
+}
+.pin .image {
+    background-color: #F2F0F0;
+    text-decoration: none;
+}
+.pin .image img {
+    max-width: 192px;
+    min-height: 75px;
+    opacity: 1;
+}
+.pin .desc {
+    margin: 10px 0 5px;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+*/

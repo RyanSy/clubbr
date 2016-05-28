@@ -15,6 +15,7 @@
   "dependencies": {
     "async": "^2.0.0-rc.5",
     "async-waterfall": "^0.1.5",
+    "bcrypt": "^0.8.6",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.1",
     "cookie-parser": "^1.4.1",
