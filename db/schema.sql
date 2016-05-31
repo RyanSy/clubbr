@@ -17,11 +17,11 @@ CREATE TABLE events
 	id int NOT NULL AUTO_INCREMENT,
 	name varchar(255) NOT NULL,
 	djs varchar(255) NOT NULL,
-	genre varchar(255) NOT NULL,
 	venue varchar(255) NOT NULL,
 	address varchar(255) NOT NULL,
 	phone varchar(255) NOT NULL,
 	hours varchar(255) NOT NULL,
 	reservations varchar(255) NOT NULL,
+	genre varchar(255) NOT NULL,
 	PRIMARY KEY (id)
 );
