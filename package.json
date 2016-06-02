@@ -37,7 +37,8 @@
     "path": "^0.12.7",
     "randomstring": "^1.1.5",
     "sendgrid": "^2.0.0",
-    "sequelize": "^3.23.0"
+    "sequelize": "^3.23.0",
+    "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
     "handlebars-helper-css": "^0.1.0"
