@@ -19,11 +19,11 @@ var User = require('../models/models.js')[1];
 
 //main landing page
 router.get('/', function(req, res) {
-    var session = {
-        logged_in: req.session.logged_in,
-        username: req.session.username
-    }
-    res.render('events/index', session);
+    // var session = {
+    //     logged_in: req.session.logged_in,
+    //     username: req.session.username
+    // }
+    res.render('events/index');
 });
 
 //route for user search
