@@ -1,14 +1,14 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override')
-var cookieParser = require('cookie-parser');
+// var cookieParser = require('cookie-parser');
 var session = require('express-session');
 
 var app = express();
 
 //allow sessions
-app.use(session({ secret: 'app', cookie: { maxAge: 6000000 }}));
-app.use(cookieParser());
+app.use(session({ secret: 'app', cookie: { maxAge: 60000000 }}));
+// app.use(cookieParser());
 
 //Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(process.cwd() + '/public'));

@@ -5,11 +5,8 @@ var path = require('path');
 var fs = require('fs');
 var sequelize = require('sequelize');
 var handlebars = require('express-handlebars');
-var keys = require('../../APIkeys/sendgridKeys.js');
-var sendgrid = require('sendgrid')(keys.sendgridKeys.key);
-
-
-
+// var keys = require('../../APIkeys/sendgridKeys.js');
+// var sendgrid = require('sendgrid').SendGrid(process.env.xhBHyGpqTCSXnKZH39VilQ);
 
 var randomstring = require("randomstring");
 var formidable = require("formidable");
@@ -19,10 +16,10 @@ var User = require('../models/models.js')[1];
 
 //main landing page
 router.get('/', function(req, res) {
-    // var session = {
-    //     logged_in: req.session.logged_in,
-    //     username: req.session.username
-    // }
+    var session = {
+        logged_in: req.session.logged_in,
+        username: req.session.username
+    }
     res.render('events/index');
 });
 
