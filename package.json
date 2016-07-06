@@ -43,6 +43,7 @@
     "sendgrid": "^2.0.0",
     "sequelize": "^3.23.0",
     "serve-favicon": "^2.3.0",
+    "utils-merge": "^1.0.0",
     "webpack-dev-server": "^1.14.1"
   },
   "devDependencies": {
