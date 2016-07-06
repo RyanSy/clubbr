@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override')
 // var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var favicon = require('serve-favicon');
 
 var app = express();
 
@@ -30,7 +31,9 @@ var users_controller = require('./controllers/users_controller.js');
 app.use('/', events_controller);
 app.use('/', users_controller);
 
+app.use(favicon(__dirname + '/public/favicon.ico'));
+
 
 var port = process.env.PORT || 3000;
 app.listen(port);
-console.log("Connected established at port:" + port);
+console.log("Connected established at port: " + port);
