@@ -4,11 +4,14 @@ var methodOverride = require('method-override')
 // var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var favicon = require('serve-favicon');
+var realFs = require('fs');
+// var gracefulFs = require('graceful-fs');
+// gracefulFs.gracefulify(realFs);
 
 var app = express();
 
 //allow sessions
-app.use(session({ secret: 'app', cookie: { maxAge: 60000000 }}));
+app.use(session({ resave: false, saveUninitialized: true, secret: 'app', cookie: { maxAge: 60000000 }}));
 // app.use(cookieParser());
 
 //Serve static content for the app from the "public" directory in the application directory.
